@@ -45,11 +45,14 @@ def on_click(message):
 
     if message.text == START_BUTTONS['all_tasks']:
         all_tasks(message, bot)
+
     elif message.text == START_BUTTONS['create_task']:
         return
     elif message.text == START_BUTTONS['complete_tasks']:
         return
     elif message.text == START_BUTTONS['urgent_tasks']:
         return
+
+    bot.register_next_step_handler(message, on_click)
 
 bot.polling(none_stop=True)

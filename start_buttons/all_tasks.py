@@ -15,10 +15,14 @@ def get_all_tasks(message):
     try:
         response = requests.get(f"{SRC}/task/get-tasks")
         response.raise_for_status()
-        return response.json()
+        all_tasks_list(message, response.json())
     except requests.exceptions.RequestException as error:
         return bot.send_message(message.chat.id, "Невдалося знайти таски")
 
 # Output tasks list function
 def all_tasks_list(message, tasks):
-    return
+    index = 1
+    for task in tasks:
+        send_message = f"{index}: {task['title']} \n\n {task['text']} \n\n Виконати до: {task['deadline']}"
+        bot.send_message(message.chat.id, send_message)
+        index = index + 1
