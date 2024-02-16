@@ -1,28 +1,47 @@
 import requests
 import telebot
+from telebot import types
 
 SRC = 'http://localhost:3000'
 
 # Button all tasks function
-def all_tasks(message, telebot:telebot.TeleBot):
+def all_tasks(message, telebot:telebot.TeleBot, back):
     global bot
+    global on_back
     bot = telebot
+    on_back = back
 
     tasks = get_all_tasks(message)
+
+    tasks = None
 
 # Request get all tasks function
 def get_all_tasks(message):
     try:
-        response = requests.get(f"{SRC}/task/get-tasks")
+        response = requests.get(f"{SRC}/user/get-task-user/{message.from_user.id}")
         response.raise_for_status()
-        all_tasks_list(message, response.json())
+        tasks = response.json()
+        all_tasks_list(message, tasks)
     except requests.exceptions.RequestException as error:
         return bot.send_message(message.chat.id, "Невдалося знайти таски")
+
 
 # Output tasks list function
 def all_tasks_list(message, tasks):
     index = 1
-    for task in tasks:
-        send_message = f"{index}: {task['title']} \n\n {task['text']} \n\n Виконати до: {task['deadline']}"
-        bot.send_message(message.chat.id, send_message)
+    for task in tasks[0]["task"]:
+        markup = types.InlineKeyboardMarkup()
+        button1 = types.InlineKeyboardButton("Виконано", callback_data='complete')
+        button2 = types.InlineKeyboardButton("Видалити", callback_data='delete')
+        markup.row(button1,button2)
+
+        send_message = f"{index}: {task['title']} \n{task['text']} \n\nСтан: {on_complete(task['complete'])} \n\nВиконати до: {task['deadline']}"
+        bot.send_message(message.chat.id, send_message, reply_markup=markup)
         index = index + 1
+
+    on_back(message)
+
+# On_complete function
+def on_complete(is_complete):
+    if is_complete: return "виконано"
+    else: return "не виконано"
