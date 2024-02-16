@@ -5,8 +5,9 @@ from telebot import types
 
 from auth.auth import login
 
-from start_buttons.all_tasks import all_tasks
-from start_buttons.create_task import create_task
+from start_buttons.all_tasks.all_tasks import all_tasks
+from start_buttons.create_task.create_task import create_task
+from start_buttons.complete_task.complete_task import complete_task
 
 from task.complete.complete import complete
 from task.delete.delete import delete
@@ -63,7 +64,7 @@ def on_click(message):
         create_task(message, bot, on_back_btn, on_back)
 
     elif message.text == START_BUTTONS['complete_tasks']:
-        return
+        complete_task(message, bot, on_back)
     
     elif message.text == START_BUTTONS['urgent_tasks']:
         return

@@ -11,9 +11,7 @@ def all_tasks(message, telebot:telebot.TeleBot, back):
     bot = telebot
     on_back = back
 
-    tasks = get_all_tasks(message)
-
-    tasks = None
+    get_all_tasks(message)
 
 # Request get all tasks function
 def get_all_tasks(message):
@@ -23,7 +21,7 @@ def get_all_tasks(message):
         tasks = response.json()
         all_tasks_list(message, tasks)
     except requests.exceptions.RequestException as error:
-        return bot.send_message(message.chat.id, "Невдалося знайти таски")
+        bot.send_message(message.chat.id, "Невдалося знайти таски")
 
 
 # Output tasks list function
