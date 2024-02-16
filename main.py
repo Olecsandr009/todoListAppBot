@@ -14,7 +14,7 @@ from task.delete.delete import delete
 bot = telebot.TeleBot('6898764061:AAHR6-ozMhtNh1Wc8ue6iz-iv28xc4QhpM0')
 
 START_BUTTONS = {
-    'all_tasks': 'Всі завдання',
+    'all_tasks': 'Завдання',
     'create_task': 'Створити завдання',
     'complete_tasks': 'Виконані завдання',
     'urgent_tasks': 'Термінові завдання'
@@ -29,10 +29,11 @@ def main(message):
 
 @bot.callback_query_handler(func=lambda callback: True)
 def callback_message(callback):
-    if callback.data == 'delete':
+    if callback.data.split(':')[0] == 'delete':
         delete(callback, bot)
-    elif callback.data == 'complete':
-        complete()
+    elif callback.data.split(':')[0] == 'complete':
+        id = callback.data.split(':')[1]
+        complete(callback, id, bot)
 # start function
 def start(message):
     markup = types.ReplyKeyboardMarkup(True)

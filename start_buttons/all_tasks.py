@@ -30,9 +30,10 @@ def get_all_tasks(message):
 def all_tasks_list(message, tasks):
     index = 1
     for task in tasks[0]["task"]:
+        if task["complete"] == True: break
         markup = types.InlineKeyboardMarkup()
-        button1 = types.InlineKeyboardButton("Виконано", callback_data='complete')
-        button2 = types.InlineKeyboardButton("Видалити", callback_data='delete')
+        button1 = types.InlineKeyboardButton("Виконано", callback_data=f'complete:{task["_id"]}')
+        button2 = types.InlineKeyboardButton("Видалити", callback_data=f'delete:{task["_id"]}')
         markup.row(button1,button2)
 
         send_message = f"{index}: {task['title']} \n{task['text']} \n\nСтан: {on_complete(task['complete'])} \n\nВиконати до: {task['deadline']}"
