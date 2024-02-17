@@ -10,7 +10,6 @@ def all_tasks(message, telebot:telebot.TeleBot, back):
     global on_back
     bot = telebot
     on_back = back
-
     get_all_tasks(message)
 
 # Request get all tasks function
@@ -22,13 +21,14 @@ def get_all_tasks(message):
         all_tasks_list(message, tasks)
     except requests.exceptions.RequestException as error:
         bot.send_message(message.chat.id, "Невдалося знайти таски")
+        on_back(message)
 
 
 # Output tasks list function
 def all_tasks_list(message, tasks):
     index = 1
     for task in tasks[0]["task"]:
-        if task["complete"] == True: break
+        if task["complete"] == True: continue
         markup = types.InlineKeyboardMarkup()
         button1 = types.InlineKeyboardButton("Виконано", callback_data=f'complete:{task["_id"]}')
         button2 = types.InlineKeyboardButton("Видалити", callback_data=f'delete:{task["_id"]}')

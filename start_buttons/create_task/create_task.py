@@ -31,8 +31,7 @@ def create_task(message, telebot:telebot.TeleBot, back_btn, back):
 
 # Get title function
 def get_title(message):
-    on_back_btn(message)
-
+    if on_back_btn(message):return
     current_task["title"] = message.text
 
     bot.send_message(message.chat.id, "Введіть опис вашого завдання")
@@ -40,7 +39,7 @@ def get_title(message):
 
 # Get description function
 def get_description(message):
-    on_back_btn(message)
+    if on_back_btn(message): return
     current_task["text"] = message.text
 
     bot.send_message(message.chat.id, "Через яку кількість днів буде дедлайн?")
@@ -48,10 +47,7 @@ def get_description(message):
 
 # Get deadline function
 def get_deadline(message):
-    on_back_btn(message)
-
-    now = datetime.datetime.now()
-
+    if on_back_btn(message): return
     current_task["deadline"] = message.text
     create_task_req(message)
 

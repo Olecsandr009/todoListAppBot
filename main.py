@@ -47,7 +47,6 @@ def start(message):
 
     markup.row(button1, button2, button3, button4)
 
-    bot.send_message(message.chat.id, "start")
     bot.send_message(message.chat.id, "Todo List App")
     bot.send_message(message.chat.id, "Що ви хочете побачити",reply_markup=markup)
 
@@ -69,14 +68,12 @@ def on_click(message):
     elif message.text == START_BUTTONS['urgent_tasks']:
         return
 
-    # bot.register_next_step_handler(message, on_click)
-
 # Back by click the markup
 def on_back_btn(message):
     for BUTTON in BACK_BUTTONS:
         if message.text == BUTTON:
-            bot.send_message(message.chat.id, "on_back_btn")
             start(message)
+            return True
 
 # Back by end of action
 def on_back(message):

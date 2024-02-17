@@ -22,7 +22,8 @@ def get_complete_task(message):
         tasks = response.json()
         complete_task_list(message, tasks)
     except requests.exceptions.RequestException as error:
-        bot.send_message(message.chat.id, "Сталася помилка")
+        bot.send_message(message.chat.id, "Невдалося знайти таски")
+        on_back(message)
 
 # Output complete task list
 def complete_task_list(message, tasks):
