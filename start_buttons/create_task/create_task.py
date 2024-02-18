@@ -4,6 +4,8 @@ import telebot
 import requests
 from telebot import types
 
+from task.deadline.deadline import deadline
+
 SRC = 'http://localhost:3000'
 
 current_task = {
@@ -48,7 +50,7 @@ def get_description(message):
 # Get deadline function
 def get_deadline(message):
     if on_back_btn(message): return
-    current_task["deadline"] = message.text
+    current_task["deadline"] = deadline(int(message.text))
     create_task_req(message)
 
 # Request create task function
