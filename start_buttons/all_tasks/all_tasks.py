@@ -10,6 +10,8 @@ def all_tasks(message, telebot:telebot.TeleBot, back):
     global on_back
     bot = telebot
     on_back = back
+
+    bot.send_message(message.chat.id, "📊Завдання які потрібно овиконати📈:")
     get_all_tasks(message)
 
 # Request get all tasks function
@@ -20,7 +22,7 @@ def get_all_tasks(message):
         tasks = response.json()
         all_tasks_list(message, tasks)
     except requests.exceptions.RequestException as error:
-        bot.send_message(message.chat.id, "Невдалося знайти таски")
+        bot.send_message(message.chat.id, "🚨Невдалося знайти таски🚨")
         on_back(message)
 
 

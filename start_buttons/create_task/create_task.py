@@ -25,8 +25,8 @@ def create_task(message, telebot:telebot.TeleBot, back_btn, back):
     button = types.KeyboardButton("Відмінити")
     markup.add(button)
 
-    bot.send_message(message.chat.id, "Чудово зараз створимо завдання", reply_markup=markup)
-    bot.send_message(message.chat.id, "Введіть назву вашого завдання")
+    bot.send_message(message.chat.id, "⬇️Чудово зараз створимо завдання⬇️", reply_markup=markup)
+    bot.send_message(message.chat.id, "Введіть назву вашого завдання👀")
     bot.register_next_step_handler(message, get_title)
 
 # Get title function
@@ -34,7 +34,7 @@ def get_title(message):
     if on_back_btn(message):return
     current_task["title"] = message.text
 
-    bot.send_message(message.chat.id, "Введіть опис вашого завдання")
+    bot.send_message(message.chat.id, "Введіть опис вашого завдання🤓")
     bot.register_next_step_handler(message, get_description)
 
 # Get description function
@@ -42,7 +42,7 @@ def get_description(message):
     if on_back_btn(message): return
     current_task["text"] = message.text
 
-    bot.send_message(message.chat.id, "Через яку кількість днів буде дедлайн?")
+    bot.send_message(message.chat.id, "Через яку кількість днів буде дедлайн?🤔")
     bot.register_next_step_handler(message, get_deadline)
 
 # Get deadline function
@@ -57,8 +57,8 @@ def create_task_req(message):
         response = requests.post(f"{SRC}/task/create-task", current_task)
         response.raise_for_status()
 
-        bot.send_message(message.chat.id, "Завдання успішно створене")
+        bot.send_message(message.chat.id, "🎉Завдання успішно створене😃")
     except requests.exceptions.RequestException as error:
-        bot.send_message(message.chat.id, "Хм. Помилка, спробуйте пізніше")
+        bot.send_message(message.chat.id, "🚨Хм. Помилка, спробуйте пізніше😔")
     finally:
         on_back(message)

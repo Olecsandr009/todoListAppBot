@@ -12,6 +12,7 @@ def complete_task(message, telebot: telebot.TeleBot, back):
     bot = telebot
     on_back = back
 
+    bot.send_message(message.chat.id, "✅Виконанні завдання✅")
     tasks = get_complete_task(message)
 
 # Request get complete task function
@@ -22,7 +23,7 @@ def get_complete_task(message):
         tasks = response.json()
         complete_task_list(message, tasks)
     except requests.exceptions.RequestException as error:
-        bot.send_message(message.chat.id, "Невдалося знайти таски")
+        bot.send_message(message.chat.id, "🚨Невдалося знайти таски🚨")
         on_back(message)
 
 # Output complete task list

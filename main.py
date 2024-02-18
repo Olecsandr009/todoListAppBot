@@ -31,7 +31,8 @@ def main(message):
 @bot.callback_query_handler(func=lambda callback: True)
 def callback_message(callback):
     if callback.data.split(':')[0] == 'delete':
-        delete(callback, bot)
+        id = callback.data.split(':')[1]
+        delete(callback, id, bot)
     elif callback.data.split(':')[0] == 'complete':
         id = callback.data.split(':')[1]
         complete(callback, id, bot)
