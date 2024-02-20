@@ -2,8 +2,7 @@ import requests
 import telebot
 
 from telebot import types
-
-SRC = 'http://localhost:3000'
+from assets import HREF
 
 # Complete task function
 def complete_task(message, telebot: telebot.TeleBot, back):
@@ -18,7 +17,7 @@ def complete_task(message, telebot: telebot.TeleBot, back):
 # Request get complete task function
 def get_complete_task(message):
     try:
-        response = requests.get(f"{SRC}/user/get-task-user/{message.from_user.id}")
+        response = requests.get(f"{HREF}/user/get-task-user/{message.from_user.id}")
         response.raise_for_status()
         tasks = response.json()
         complete_task_list(message, tasks)

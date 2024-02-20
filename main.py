@@ -1,4 +1,3 @@
-# 6898764061:AAHR6-ozMhtNh1Wc8ue6iz-iv28xc4QhpM0
 import telebot
 from telebot import types
 
@@ -11,8 +10,9 @@ from start_buttons.urgent_tasks.urgent_tasks import urgent_tasks
 
 from task.complete.complete import complete
 from task.delete.delete import delete
+from assets import TOKEN
 
-bot = telebot.TeleBot('6898764061:AAHR6-ozMhtNh1Wc8ue6iz-iv28xc4QhpM0')
+bot = telebot.TeleBot(TOKEN)
 
 START_BUTTONS = {
     'all_tasks': 'Завдання',

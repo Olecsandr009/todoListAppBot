@@ -1,12 +1,8 @@
-import datetime
-
 import telebot
 import requests
 from telebot import types
-
+from assets import HREF
 from task.deadline.deadline import deadline
-
-SRC = 'http://localhost:3000'
 
 current_task = {
     "title": None,
@@ -56,7 +52,7 @@ def get_deadline(message):
 # Request create task function
 def create_task_req(message):
     try:
-        response = requests.post(f"{SRC}/task/create-task", current_task)
+        response = requests.post(f"{HREF}/task/create-task", current_task)
         response.raise_for_status()
 
         bot.send_message(message.chat.id, "🎉Завдання успішно створене😃")

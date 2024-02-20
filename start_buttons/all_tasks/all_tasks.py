@@ -1,8 +1,8 @@
 import requests
 import telebot
-from telebot import types
 
-SRC = 'http://localhost:3000'
+from telebot import types
+from assets import HREF
 
 # Button all tasks function
 def all_tasks(message, telebot:telebot.TeleBot, back):
@@ -17,7 +17,7 @@ def all_tasks(message, telebot:telebot.TeleBot, back):
 # Request get all tasks function
 def get_all_tasks(message):
     try:
-        response = requests.get(f"{SRC}/user/get-task-user/{message.from_user.id}")
+        response = requests.get(f"{HREF}/user/get-task-user/{message.from_user.id}")
         response.raise_for_status()
         tasks = response.json()
         all_tasks_list(message, tasks)

@@ -2,8 +2,7 @@ import telebot
 import requests
 
 from telebot import types
-
-SRC = 'http://localhost:3000'
+from assets import HREF
 
 # Urgent tasks function
 def urgent_tasks(message, telebot:telebot.TeleBot, back):
@@ -18,7 +17,7 @@ def urgent_tasks(message, telebot:telebot.TeleBot, back):
 # Request get urgent tasks function
 def get_urgent_tasks(message):
     try:
-        response = requests.get(f"{SRC}/user/get-task-user-date/{message.from_user.id}")
+        response = requests.get(f"{HREF}/user/get-task-user-date/{message.from_user.id}")
         response.raise_for_status()
         tasks = response.json()
         urgent_tasks_list(message, tasks)

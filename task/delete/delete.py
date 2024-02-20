@@ -1,7 +1,7 @@
 import requests
 import telebot
 
-SRC = 'http://localhost:3000'
+from assets import HREF
 
 # Delete task function
 def delete(callback, id, telebot:telebot.TeleBot):
@@ -14,7 +14,7 @@ def delete(callback, id, telebot:telebot.TeleBot):
 # Request delete task function
 def on_delete(id):
     try:
-        response = requests.delete(f"{SRC}/task/delete-task/{id}")
+        response = requests.delete(f"{HREF}/task/delete-task/{id}")
         response.raise_for_status()
         return True
     except requests.exceptions.RequestException as error:

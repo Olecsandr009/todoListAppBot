@@ -1,7 +1,7 @@
 import requests
 import telebot
 
-SRC = 'http://localhost:3000'
+from assets import HREF
 
 # Complete task function
 def complete(callback, id, telebot:telebot.TeleBot):
@@ -14,7 +14,7 @@ def complete(callback, id, telebot:telebot.TeleBot):
 # Request on complete task junction
 def on_complete(id):
     try:
-        response = requests.put(f"{SRC}/task/update-task/{id}")
+        response = requests.put(f"{HREF}/task/update-task/{id}")
         response.raise_for_status()
         return True
     except requests.exceptions.RequestException as error:

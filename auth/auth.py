@@ -2,7 +2,7 @@ import requests
 import json
 import telebot
 
-SRC = 'http://localhost:3000'
+from assets import HREF
 
 # Request registration function
 def register(message):
@@ -13,7 +13,7 @@ def register(message):
             'firstName': message.from_user.last_name or ""
         }
 
-        response = requests.post(f"{SRC}/user/create-user", data)
+        response = requests.post(f"{HREF}/user/create-user", data)
         response.raise_for_status()
         return login(message, bot)
     except requests.exceptions.RequestException as error:
@@ -25,7 +25,7 @@ def login(message, telebot:telebot.TeleBot):
     bot = telebot
 
     try:
-        response = requests.get(f"{SRC}/user/login-user/{message.from_user.id}")
+        response = requests.get(f"{HREF}/user/login-user/{message.from_user.id}")
         response.raise_for_status()
         return response.json()
 
