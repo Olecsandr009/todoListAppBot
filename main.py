@@ -7,6 +7,7 @@ from auth.auth import login
 from start_buttons.all_tasks.all_tasks import all_tasks
 from start_buttons.create_task.create_task import create_task
 from start_buttons.complete_task.complete_task import complete_task
+from start_buttons.urgent_tasks.urgent_tasks import urgent_tasks
 
 from task.complete.complete import complete
 from task.delete.delete import delete
@@ -66,7 +67,7 @@ def on_click(message):
         complete_task(message, bot, on_back)
     
     elif message.text == START_BUTTONS['urgent_tasks']:
-        return
+        urgent_tasks(message, bot, on_back)
 
 # Back by click the markup
 def on_back_btn(message):

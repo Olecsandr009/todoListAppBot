@@ -29,6 +29,12 @@ def get_complete_task(message):
 # Output complete task list
 def complete_task_list(message, tasks):
     index = 1
+
+    if bool(tasks[0]["task"]) is False:
+        bot.send_message(message.chat.id, "Нажаль ми не знайшли потрібних завдань😔")
+        on_back(message)
+        return
+
     for task in tasks[0]["task"]:
         if task["complete"] == False: break
         markup = types.InlineKeyboardMarkup()
