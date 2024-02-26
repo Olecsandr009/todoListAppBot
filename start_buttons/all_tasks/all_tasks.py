@@ -30,12 +30,12 @@ def get_all_tasks(message):
 def all_tasks_list(message, tasks):
     index = 1
 
-    if bool(tasks[0]["task"]) is False:
+    if bool(tasks["task"]) is False:
         bot.send_message(message.chat.id, "Нажаль ми не знайшли потрібних завдань😔")
         on_back(message)
         return
 
-    for task in tasks[0]["task"]:
+    for task in tasks["task"]:
         if task["complete"] == True: continue
         markup = types.InlineKeyboardMarkup()
         button1 = types.InlineKeyboardButton("Виконано", callback_data=f'complete:{task["_id"]}')

@@ -29,13 +29,12 @@ def get_complete_task(message):
 def complete_task_list(message, tasks):
     index = 1
 
-    if bool(tasks[0]["task"]) is False:
+    if bool(tasks["task"]) is False:
         bot.send_message(message.chat.id, "Нажаль ми не знайшли потрібних завдань😔")
         on_back(message)
         return
-
-    for task in tasks[0]["task"]:
-        if task["complete"] == False: break
+    for task in tasks["task"]:
+        if task["complete"] == False: continue
         markup = types.InlineKeyboardMarkup()
         button1 = types.InlineKeyboardButton("Видалити", callback_data=f'delete:{task["_id"]}')
         markup.add(button1)

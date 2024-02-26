@@ -50,7 +50,6 @@ def start(message):
 
     bot.send_message(message.chat.id, "Todo List App")
     bot.send_message(message.chat.id, "Що ви хочете побачити",reply_markup=markup)
-
     bot.register_next_step_handler(message, on_click)
 
 # on_click function

@@ -1,10 +1,16 @@
+import datetime
+
 import telebot
 import requests
+
 from telebot import types
 from assets import HREF
+
 from task.deadline.deadline import deadline
+from task.scheduled.scheduled import scheduled
 
 current_task = {
+    "userId": None,
     "title": None,
     "text": "",
     "deadline": 0
@@ -31,6 +37,7 @@ def create_task(message, telebot:telebot.TeleBot, back_btn, back):
 def get_title(message):
     if on_back_btn(message):return
     current_task["title"] = message.text
+    current_task["userId"] = message.from_user.id
 
     bot.send_message(message.chat.id, "Введіть опис вашого завдання🤓")
     bot.register_next_step_handler(message, get_description)
@@ -46,7 +53,20 @@ def get_description(message):
 # Get deadline function
 def get_deadline(message):
     if on_back_btn(message): return
-    current_task["deadline"] = deadline(int(message.text))
+    if str(message.text).isdigit() == False:
+        bot.send_message(message.chat.id, "Помилка")
+        on_back(message)
+        return
+
+    current_date_data = deadline(int(message.text))
+
+    current_date = str(current_date_data).split(" ")[0].split("-")
+    current_time = str(current_date_data).split(" ")[1].split(":")
+
+    deadline_date = datetime.datetime(*(int(num) for num in current_date), *(int(num) for num in current_time))
+    current_task["deadline"] = deadline_date
+
+    # scheduled(deadline_date, message, bot, current_task, on_back)
     create_task_req(message)
 
 # Request create task function

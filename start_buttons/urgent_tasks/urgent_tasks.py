@@ -35,7 +35,7 @@ def urgent_tasks_list(message, tasks):
         on_back(message)
         return
 
-    for task in tasks[0]["task"]:
+    for task in tasks["task"]:
         if task["complete"] == True: continue
         markup = types.InlineKeyboardMarkup()
         button1 = types.InlineKeyboardButton("Виконано", callback_data=f'complete:{task["_id"]}')

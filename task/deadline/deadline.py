@@ -1,8 +1,6 @@
 import datetime
 import time
 
-global current_date
-
 named_tuple = time.localtime()
 date_data = time.strftime("%Y-%m-%d %H-%M-%S", named_tuple)
 
@@ -30,9 +28,8 @@ def deadline(days):
 
     except ValueError as error:
         deadline_date = get_new_date(current_year, current_month, int(current_day) + days)
-        print(deadline_date, "function")
 
-    return f"{deadline_date}"
+    return f"{deadline_date} {":".join(current_time.split("-"))}"
 
 
 # get month end function
